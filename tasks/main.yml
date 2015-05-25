@@ -11,3 +11,5 @@
 - name: destroy
   include: destroy.yml
   when: genesis_destroy
+
+# TODO CREATE .gitignore or append to gitignore for sensitive data in *.tfvars and create, destroy
