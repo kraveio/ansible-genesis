@@ -29,6 +29,15 @@
 
 - debug: var=tf_run
 
+- name: create - ensure .gitignore is correct
+  lineinfile: 
+    dest={{ genesis_module_dir }}/.gitignore
+    line={{ item }}
+  with_items:
+    - "terraform.tfvars"
+    - "bootstrap"
+    - "destroy"
+
 - name: create - generate bootstrap file
   template:
     src=bootstrap.j2

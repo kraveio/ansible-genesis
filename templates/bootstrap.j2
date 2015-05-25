@@ -6,7 +6,12 @@ export AWS_ACCESS_KEY_ID="{{ aws_access_key }}"
 export AWS_SECRET_ACCESS_KEY="{{ aws_secret_key }}"
 export AWS_DEFAULT_REGION="{{ aws_region }}"
 
+terrafrom get -update
+
 terraform apply
+
+#JUMP_IP=$("terraform output jump_ip")
 
 terraform remote config -backend=s3 -backend-config="bucket={{ genesis_state_bucket }}" -backend-config="key={{ genesis_state_file }}"
 
+#ssh ec2-user@$JUMP_IP
