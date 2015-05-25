@@ -1,0 +1,30 @@
+---
+
+#- name: destroy - disable uploaded state
+#  shell: 'terraform remote config -backend=s3 -backend-config="{{ genesis_state_bucket }}" -backend-config="key={{ genesis_state_file }} -disable"'
+#  args:
+#    chdir: "{{ genesis_module_dir }}"
+#  environment:
+#    AWS_ACCESS_KEY_ID: "{{ aws_access_key }}"
+#    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key }}"
+#    AWS_DEFAULT_REGION: "{{ aws_region }}"
+#  when: genesis_destroy
+#  ignore_errors: yes
+
+#- name: delete state file from s3
+#  s3:
+#    bucket={{ genesis_state_bucket }}
+#    mode=delete
+#    object={{ genesis_state_file }}
+#    aws_access_key={{ aws_access_key }}
+#    aws_secret_key={{ aws_secret_key }}
+#    region={{ aws_region }}
+#  when: genesis_destroy
+
+- name: generate destroy file
+  template:
+    src=destroy.j2
+    dest={{ genesis_module_dir }}/destroy
+    mode=755
+  when: genesis_destroy
+

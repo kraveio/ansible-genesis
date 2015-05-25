@@ -1,0 +1,38 @@
+---
+- name: create - check for existence of bucket state file
+  s3:
+    bucket={{ genesis_state_bucket }}
+    mode=get
+    object={{ genesis_state_file }}
+    aws_access_key={{ aws_access_key }}
+    aws_secret_key={{ aws_secret_key }}
+    region={{ aws_region }}
+  ignore_errors: yes
+  register: state_file
+
+- name: create - do terraform module update 
+  shell: terraform get -update
+  args:
+    chdir: "{{ genesis_module_dir }}"
+
+- name: create - generate terraform tfvars file
+  template:
+    src=terraform.tfvars.j2
+    dest={{ genesis_module_dir }}/terraform.tfvars
+
+- name: create - do a test on the plan
+  shell: terraform plan
+  args:
+    chdir: "{{ genesis_module_dir }}"
+  when: state_file.failed
+  register: tf_run
+
+- debug: var=tf_run
+
+- name: create - generate bootstrap file
+  template:
+    src=bootstrap.j2
+    dest={{ genesis_module_dir }}/bootstrap
+    mode=755
+
+

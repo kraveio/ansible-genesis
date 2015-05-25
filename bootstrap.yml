@@ -1,0 +1,31 @@
+- hosts: all
+  gather_facts: no
+  vars_files: 
+    - vars/credentials.yml
+  vars:
+    genesis_state_bucket: bootstrap.demo.dev.krave.io
+    genesis_state_file: genesis.tfstate
+    genesis_jump_access_cidr: "0.0.0.0/0"
+    genesis_destroy: false
+
+    aws_vpc_name: demo
+    aws_keypair_name: Master2014
+    aws_private_key: ~/.ssh/taku/ThumbnailMaster2014.pem
+    aws_region: us-west-2
+    aws_zone: "{{ aws_region }}a"
+    aws_zone_alt: "{{ aws_region }}b"
+  vars_prompt:
+
+    - name: "confirmation"
+      prompt: "Are you sure you want to destroy the resources in the datacenter? If so, type the whole word: 'YES'"
+      default: "NO"
+      private: no
+      when: genesis_destroy
+
+  tasks:
+    - name: Check Confirmation
+      fail: msg="Playbook run confirmation failed"
+      when: confirmation != "YES" and genesis_destroy
+
+      #roles:
+      #- role: genesis

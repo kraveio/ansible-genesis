@@ -1,0 +1,13 @@
+---
+
+- name: install full environment
+  include: depend.yml
+  when: genesis_isolated
+
+- name: create
+  include: create.yml
+  when: not genesis_destroy
+  
+- name: destroy
+  include: destroy.yml
+  when: genesis_destroy

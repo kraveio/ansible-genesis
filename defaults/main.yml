@@ -1,0 +1,28 @@
+---
+
+genesis_state_bucket: ''
+genesis_state_file: genesis.tfstate
+genesis_module_dir: ./
+
+genesis_isolated: false
+genesis_destroy: false
+
+# use + to delimit list
+genesis_jump_access_cidr: "0.0.0.0/0"
+
+aws_access_key: ''
+aws_secret_key: ''
+aws_account_id: ''
+
+aws_vpc_name: ''
+aws_keypair_name: ''
+aws_private_key: ''
+
+aws_region: us-west-2
+aws_zone: "{{ aws_region }}a"
+aws_zone_alt: "{{ aws_region }}b"
+
+
+
+
+
