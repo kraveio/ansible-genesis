@@ -1,0 +1,16 @@
+---
+
+- name: create - ensure .gitignore is correct
+  lineinfile: 
+    dest={{ genesis_module_dir }}/.gitignore
+    line={{ item }}
+  with_items:
+    - "terraform.tfvars"
+    - "bootstrap"
+    - "destroy"
+
+- name: create - generate terraform tfvars file
+  template:
+    src=terraform.tfvars.j2
+    dest={{ genesis_module_dir }}/terraform.tfvars
+
