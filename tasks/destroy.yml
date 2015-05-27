@@ -1,5 +1,12 @@
 ---
 
+- name: generate destroy file
+  template:
+    src=destroy.j2
+    dest={{ genesis_module_dir }}/destroy
+    mode=755
+  when: genesis_destroy
+
 #- name: destroy - disable uploaded state
 #  shell: 'terraform remote config -backend=s3 -backend-config="{{ genesis_state_bucket }}" -backend-config="key={{ genesis_state_file }} -disable"'
 #  args:
@@ -20,11 +27,4 @@
 #    aws_secret_key={{ aws_secret_key }}
 #    region={{ aws_region }}
 #  when: genesis_destroy
-
-- name: generate destroy file
-  template:
-    src=destroy.j2
-    dest={{ genesis_module_dir }}/destroy
-    mode=755
-  when: genesis_destroy
 

@@ -10,8 +10,5 @@ terraform get -update
 
 terraform apply
 
-#JUMP_IP=$("terraform output jump_ip")
-
 terraform remote config -backend=s3 -backend-config="bucket={{ genesis_state_bucket }}" -backend-config="key={{ genesis_state_file }}"
 
-#ssh ec2-user@$JUMP_IP
