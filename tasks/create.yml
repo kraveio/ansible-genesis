@@ -14,12 +14,12 @@
 - name: create - do terraform module update 
   shell: terraform get -update
   args:
-    chdir: "{{ genesis_module_dir }}"
+    chdir: "{{ genesis_deploy_dir }}"
 
 - name: create - do a test on the plan
   shell: terraform plan
   args:
-    chdir: "{{ genesis_module_dir }}"
+    chdir: "{{ genesis_deploy_dir }}"
   when: state_file.failed
   register: tf_run
 
@@ -28,7 +28,7 @@
 - name: create - generate bootstrap file
   template:
     src=bootstrap.j2
-    dest={{ genesis_module_dir }}/bootstrap
+    dest={{ genesis_deploy_dir }}/bootstrap
     mode=755
 
 

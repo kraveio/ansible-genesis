@@ -2,15 +2,43 @@
 
 - name: create - ensure .gitignore is correct
   lineinfile: 
-    dest={{ genesis_module_dir }}/.gitignore
+    dest={{ genesis_deploy_dir }}/.gitignore
     line={{ item }}
   with_items:
-    - "terraform.tfvars"
-    - "bootstrap"
-    - "destroy"
+    - "**/terraform.tfvars"
+    - "**/bootstrap"
+    - "**/destroy"
+    - "**/provision/**"
+
+- name: setup - create bootstrap folder
+  file:
+    state=directory
+    path={{ genesis_deploy_dir }}/provision
+    mode=750
+
+- name: move setup files
+  copy:
+    src=provision/
+    dest={{ genesis_deploy_dir }}/provision/
+    mode=750
 
 - name: create - generate terraform tfvars file
   template:
     src=terraform.tfvars.j2
-    dest={{ genesis_module_dir }}/terraform.tfvars
+    dest={{ genesis_deploy_dir }}/provision/terraform.tfvars
+    mode=750
+
+- name: create - generate bootstrap file
+  template:
+    src=bootstrap.j2
+    dest={{ genesis_deploy_dir }}/provision/bootstrap
+    mode=750
+
+- name: generate destroy file
+  template:
+    src=destroy.j2
+    dest={{ genesis_deploy_dir }}/provision/destroy
+    mode=750
+  when: genesis_destroy
+
 

@@ -1,0 +1,27 @@
+---
+- hosts: all
+  sudo: true
+
+  vars:
+    aws_access_key: {{ aws_access_key }}
+    aws_secret_key: {{ aws_secret_key }}
+    aws_account_id: {{ aws_account_id }}
+    aws_region: {{ aws_region }}
+  # genesis_vpc_id needs to be passed in on the the command line
+
+  roles:
+
+  - role: gotansible.terraform
+  - role: kraveio.provision
+    provision_vpc_id: "{{ genesis_vpc_id }}"
+    provision_vpc_name: "{{ genesis_vpc_name }}"
+    provision_state_bucket: "{{ genesis_state_bucket }}"
+    provision_state_file: "{{ genesis_state_file }}"
+    provision_keypair_name: "{{ aws_keypair_name }}"
+    provision_playbook_repo_url: "{{ genesis_playbook_repo }}"
+    provision_playbook_repo_keyfile: ""
+    provision_terraform_repo_url: "{{ genesis_terraform_repo }}"
+    provision_terraform_repo_keyfile: ""
+    provision_inventory_all_filters:
+      - "vpc-id={{ genesis_vpc_id }}"
+

@@ -1,16 +1,21 @@
+# this is the local tfvars file to do a one time bootstrap
+# and then it should, most likely, be deleted
+
 aws_access_key = "{{ aws_access_key }}"
 aws_secret_key = "{{ aws_secret_key }}"
 aws_account_id = "{{ aws_account_id }}"
 aws_region = "{{ aws_region }}"
 
-state_bucket = "{{ genesis_state_bucket }}"
+vpc_zone = "{{ aws_zone }}"
+vpc_zone_alt = "{{ aws_zone_alt }}"
 
-aws_vpc_name = "{{ aws_vpc_name }}"
+aws_vpc_name = "{{ genesis_vpc_name }}"
 aws_keypair_name = "{{ aws_keypair_name }}"
 aws_private_key = "{{ aws_private_key }}"
 
-vpc_zone = "{{ aws_zone }}"
-vpc_zone_alt = "{{ aws_zone_alt }}"
+state_bucket = "{{ genesis_state_bucket }}"
+# no state file, because that is named outside of the terraform run
+# for bootstraing
 
 jump_access_cidr = "{{ genesis_jump_access_cidr }}"
 

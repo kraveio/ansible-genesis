@@ -6,16 +6,32 @@ export AWS_ACCESS_KEY_ID="{{ aws_access_key }}"
 export AWS_SECRET_ACCESS_KEY="{{ aws_secret_key }}"
 export AWS_DEFAULT_REGION="{{ aws_region }}"
 
+# http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+# get the directory of this script
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+cd ..
+
 terraform get -update
 
 terraform apply
 
-#PROVISION_IP=`terraform output provision_ip`
-#PUBLIC_IP=`terraform output public_ip`
-#
-#ssh -i {{ aws_private_key }} -f -L 12987:$PROVISION_IP:22 ec2-user@$PUBLIC_IP -o StrictHostKeyChecking=no sleep 300 <&- >&- 2>&- &
-#
-#ansible-playbook setup.yml -i inventory.ini -e "aws_access_key=$1 aws_secret_key=$2 aws_account_id=$3 aws_region=$4 provision_state_bucket=$5 provision_vpc_id=$6 provision_vpc_name=$7"
+PROVISION_IP=`terraform output provision_ip`
+PUBLIC_IP=`terraform output public_ip`
+VPC_ID=`terraform output vpc_id`
 
-terraform remote config -backend=s3 -backend-config="bucket={{ genesis_state_bucket }}" -backend-config="key={{ genesis_state_file }}"
+ssh -i {{ aws_private_key }} -f -L 12987:$PROVISION_IP:22 ec2-user@$PUBLIC_IP -o StrictHostKeyChecking=no sleep 300 <&- >&- 2>&- &
+
+cd $DIR
+echo "now in $(pwd)"
+
+ansible-playbook provision.yml -i inventory.ini -e "provision_vpc_id=$VPC_ID"
+
+#terraform remote config -backend=s3 -backend-config="bucket={{ genesis_state_bucket }}" -backend-config="key={{ genesis_state_file }}"
 
