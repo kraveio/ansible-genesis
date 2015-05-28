@@ -10,5 +10,12 @@ terraform get -update
 
 terraform apply
 
+#PROVISION_IP=`terraform output provision_ip`
+#PUBLIC_IP=`terraform output public_ip`
+#
+#ssh -i {{ aws_private_key }} -f -L 12987:$PROVISION_IP:22 ec2-user@$PUBLIC_IP -o StrictHostKeyChecking=no sleep 300 <&- >&- 2>&- &
+#
+#ansible-playbook setup.yml -i inventory.ini -e "aws_access_key=$1 aws_secret_key=$2 aws_account_id=$3 aws_region=$4 provision_state_bucket=$5 provision_vpc_id=$6 provision_vpc_name=$7"
+
 terraform remote config -backend=s3 -backend-config="bucket={{ genesis_state_bucket }}" -backend-config="key={{ genesis_state_file }}"
 
