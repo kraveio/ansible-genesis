@@ -1,5 +1,10 @@
 ---
 
+- name: ensure .gitignore exists
+  file:
+    state=touch
+    path={{ genesis_deploy_dir }}/.gitignore
+
 - name: create - ensure .gitignore is correct
   lineinfile: 
     dest={{ genesis_deploy_dir }}/.gitignore
