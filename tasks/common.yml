@@ -19,7 +19,7 @@
   file:
     state=directory
     path={{ genesis_deploy_dir }}/provision
-    mode=660
+    mode=770
 
 - name: move setup files
   copy:
