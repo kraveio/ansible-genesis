@@ -25,10 +25,5 @@
 
 - debug: var=tf_run
 
-- name: create - generate bootstrap file
-  template:
-    src=bootstrap.j2
-    dest={{ genesis_deploy_dir }}/bootstrap
-    mode=755
 
 

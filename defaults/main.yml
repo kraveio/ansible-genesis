@@ -10,7 +10,7 @@ genesis_jump_access_cidr: "0.0.0.0/0"
 ### Special Flags ####
 
 #generate files in this dir
-genesis_deploy_dir: ./
+genesis_deploy_dir: ../
 genesis_isolated: false
 genesis_destroy: false
 

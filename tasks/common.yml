@@ -19,19 +19,19 @@
   file:
     state=directory
     path={{ genesis_deploy_dir }}/provision
-    mode=750
+    mode=660
 
 - name: move setup files
   copy:
     src=provision/
     dest={{ genesis_deploy_dir }}/provision/
-    mode=750
+    mode=660
 
 - name: create - generate terraform tfvars file
   template:
     src=terraform.tfvars.j2
     dest={{ genesis_deploy_dir }}/provision/terraform.tfvars
-    mode=750
+    mode=660
 
 - name: create - generate bootstrap file
   template:
@@ -44,6 +44,5 @@
     src=destroy.j2
     dest={{ genesis_deploy_dir }}/provision/destroy
     mode=750
-  when: genesis_destroy
 
 
