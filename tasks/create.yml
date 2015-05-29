@@ -15,7 +15,7 @@
   file:
     state=link
     src={{ genesis_terraform_file }}
-    dest={{ genesis_deploy_dir }}/genesis.tf
+    dest={{ genesis_deploy_dir }}/provision/genesis.tf
 
 - name: create - do terraform module update 
   shell: terraform get -update

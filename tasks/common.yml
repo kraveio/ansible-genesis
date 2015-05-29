@@ -45,4 +45,9 @@
     dest={{ genesis_deploy_dir }}/provision/destroy
     mode=750
 
+- name: link terraform file
+  file:
+    state=link
+    src={{ genesis_terraform_file }}
+    dest={{ genesis_deploy_dir }}/provision/genesis.tf
 
