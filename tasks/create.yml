@@ -11,6 +11,11 @@
   ignore_errors: yes
   register: state_file
 
+- name: link terraform file
+  file:
+    src={{ genesis_terraform_file }}
+    dest={{ genesis_deploy_dir }}/genesis.tf
+
 - name: create - do terraform module update 
   shell: terraform get -update
   args:
