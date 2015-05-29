@@ -11,21 +11,16 @@
   ignore_errors: yes
   register: state_file
 
-- name: link terraform file
-  file:
-    state=link
-    src={{ genesis_terraform_file }}
-    dest={{ genesis_deploy_dir }}/provision/genesis.tf
 
 - name: create - do terraform module update 
   shell: terraform get -update
   args:
-    chdir: "{{ genesis_deploy_dir }}"
+    chdir: "{{ genesis_deploy_dir }}/provision"
 
 - name: create - do a test on the plan
   shell: terraform plan
   args:
-    chdir: "{{ genesis_deploy_dir }}"
+    chdir: "{{ genesis_deploy_dir }}/provision"
   when: state_file.failed
   register: tf_run
 
