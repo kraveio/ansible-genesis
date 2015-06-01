@@ -18,7 +18,7 @@
     provision_state_file: "{{ genesis_state_file }}"
     provision_keypair_name: "{{ aws_keypair_name }}"
     provision_inventory_all_filters:
-      - "vpc-id='{{' provision_vpc_id '}}'"
+      - "vpc-id={{'{{'}} provision_vpc_id {{ '}}' }}"
 
     provision_playbook_repo_url: "{{ genesis_playbook_repo }}"
     provision_playbook_repo_keyfile: "{{ genesis_playbook_repo_keyfile }}"
