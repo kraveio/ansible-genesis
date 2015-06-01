@@ -33,6 +33,12 @@
     dest={{ genesis_deploy_dir }}/terraform.tfvars
     mode=660
 
+- name: create - provision.yml
+  template:
+    src=provision.yml.j2
+    dest={{ genesis_deploy_dir }}/provision.yml
+    mode=660
+
 - name: create - generate bootstrap file
   template:
     src=bootstrap.j2
