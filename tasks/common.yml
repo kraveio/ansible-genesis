@@ -1,5 +1,11 @@
 ---
 
+- name: setup - create bootstrap folder
+  file:
+    state=directory
+    path={{ genesis_deploy_dir }}/
+    mode=770
+
 - name: ensure .gitignore exists
   file:
     state=touch
@@ -14,12 +20,6 @@
     - "**/bootstrap"
     - "**/destroy"
     - "**/provision/**"
-
-- name: setup - create bootstrap folder
-  file:
-    state=directory
-    path={{ genesis_deploy_dir }}/
-    mode=770
 
 - name: move setup files
   copy:
