@@ -18,6 +18,8 @@ VPC_ID=`terraform output vpc_id`
 
 ssh -i {{ aws_private_key }} -f -L 12987:$PROVISION_IP:22 ec2-user@$JUMP_IP -o StrictHostKeyChecking=no sleep 300 <&- >&- 2>&- &
 
+echo $JUMP_IP > inventory.ini
+
 ansible-playbook provision.yml -i inventory.ini -e "provision_vpc_id=$VPC_ID"
 
 terraform remote config -backend=s3 -backend-config="bucket={{ genesis_state_bucket }}" -backend-config="key={{ genesis_state_file }}"
