@@ -7,6 +7,8 @@ genesis_vpc_name: ''
 # use + to delimit list
 genesis_jump_access_cidr: "0.0.0.0/0"
 
+genesis_keys: []
+
 ### Special Flags ####
 
 #generate files in this dir

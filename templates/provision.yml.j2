@@ -26,5 +26,11 @@
     provision_terraform_repo_url: "{{ genesis_terraform_repo }}"
     provision_terraform_repo_keyfile: "{{ genesis_terraform_repo_keyfile }}"
     provision_terraform_repo_version: "{{ genesis_terraform_repo_version }}"
+{% if genesis_keys|length > 0 %}
+    provision_keys:
+{% for path in genesis_keys %}
+      - {{ path }}
+{% endfor %}
+{% endif %}
 
 
