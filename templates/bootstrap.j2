@@ -17,8 +17,10 @@ JUMP_IP=`terraform output jump_ip`
 VPC_ID=`terraform output vpc_id`
 
 echo ""
-echo "ssh -i {{ aws_private_key }} -f -L 12988:$PROVISION_IP:22 ec2-user@$JUMP_IP -o StrictHostKeyChecking=no sleep 30 <&- >&- 2>&- &"
-ssh -i {{ aws_private_key }} -f -L 12988:$PROVISION_IP:22 ec2-user@$JUMP_IP -o StrictHostKeyChecking=no sleep 30 <&- >&- 2>&- &
+echo "ssh -i {{ aws_private_key }} -f -L 12988:$PROVISION_IP:22 ec2-user@$JUMP_IP -o StrictHostKeyChecking=no sleep 300 <&- >&- 2>&- &"
+ssh -i {{ aws_private_key }} -f -L 12988:$PROVISION_IP:22 ec2-user@$JUMP_IP -o StrictHostKeyChecking=no sleep 300 <&- >&- 2>&- &
+
+sleep 10
 
 ansible-playbook provision.yml -i inventory.ini -e "provision_vpc_id=$VPC_ID" --private-key "{{ aws_private_key }}"
 
