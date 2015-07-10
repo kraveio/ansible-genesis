@@ -17,7 +17,7 @@
     chdir: "{{ genesis_deploy_dir }}/"
 
 - name: create - do a test on the plan
-  shell: terraform plan --module-depth=-1
+  shell: terraform plan -module-depth=-1
   args:
     chdir: "{{ genesis_deploy_dir }}/"
   when: state_file.failed
