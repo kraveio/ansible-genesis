@@ -1,17 +1,17 @@
 ---
 
-- name: setup - create bootstrap folder
+- name: common - create bootstrap folder
   file:
     state=directory
     path={{ genesis_deploy_dir }}/
     mode=770
 
-- name: ensure .gitignore exists
+- name: common - ensure .gitignore exists
   file:
     state=touch
     path={{ genesis_deploy_dir }}/../.gitignore
 
-- name: create - ensure .gitignore is correct
+- name: common - ensure .gitignore is correct
   lineinfile: 
     dest={{ genesis_deploy_dir }}/../.gitignore
     line={{ item }}
@@ -21,39 +21,39 @@
     - "**/destroy"
     - "**/provision/**"
 
-- name: move setup files
+- name: common - move setup files
   copy:
     src=provision/
     dest={{ genesis_deploy_dir }}/
     mode=660
 
-- name: create - generate terraform tfvars file
+- name: common - generate terraform tfvars file
   template:
     src=terraform.tfvars.j2
     dest={{ genesis_deploy_dir }}/terraform.tfvars
     mode=660
 
-- name: create - provision.yml
+- name: common - provision.yml
   template:
     src=provision.yml.j2
     dest={{ genesis_deploy_dir }}/provision.yml
     mode=660
 
-- name: create - generate bootstrap file
+- name: common - generate bootstrap file
   template:
     src=bootstrap.j2
     dest={{ genesis_deploy_dir }}/bootstrap
     mode=750
 
-- name: generate destroy file
+- name: common - generate destroy file
   template:
     src=destroy.j2
     dest={{ genesis_deploy_dir }}/destroy
     mode=750
 
-- name: link terraform file
-  file:
-    state=link
-    src={{ genesis_terraform_file }}
+- name: common - generate terraform file
+  template:
+    src=vpc.tf.j2
     dest={{ genesis_deploy_dir }}/genesis.tf
+    mode=750
 
