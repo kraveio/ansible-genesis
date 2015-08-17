@@ -12,7 +12,7 @@ genesis_keys: []
 ### Special Flags ####
 
 #generate files in this dir
-genesis_deploy_dir: ../bootstrap
+genesis_deploy_dir: ../.bootstrap
 genesis_isolated: false
 genesis_destroy: false
 
