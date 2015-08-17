@@ -55,5 +55,5 @@
   template:
     src=vpc.tf.j2
     dest={{ genesis_deploy_dir }}/genesis.tf
-    mode=750
+    mode=640
 
