@@ -52,8 +52,8 @@
     mode=750
 
 - name: common - generate terraform file
-  template:
-    src=vpc.tf.j2
+  copy:
+    src={{ genesis_terraform_file }}
     dest={{ genesis_deploy_dir }}/genesis.tf
     mode=640
 
