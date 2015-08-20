@@ -17,6 +17,7 @@
     provision_state_bucket: "{{ genesis_state_bucket }}"
     provision_state_file: "{{ genesis_state_file }}"
     provision_keypair_name: "{{ aws_keypair_name }}"
+    provision_private_key: ~/.ssh/provision/{{ aws_private_key | basename }}
     provision_inventory_all_filters:
       - "vpc-id={{'{{'}} provision_vpc_id {{ '}}' }}"
 
