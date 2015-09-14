@@ -1,7 +1,7 @@
 ---
 
 genesis_state_bucket: ''
-genesis_state_file: genesis.tfstate
+genesis_state_file: vpc.tfstate
 
 genesis_vpc_name: ''
 # use + to delimit list
