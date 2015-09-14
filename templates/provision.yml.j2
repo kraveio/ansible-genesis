@@ -3,10 +3,12 @@
   sudo: true
 
   vars:
-    aws_access_key: {{ aws_access_key }}
-    aws_secret_key: {{ aws_secret_key }}
-    aws_account_id: {{ aws_account_id }}
-    aws_region: {{ aws_region }}
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    aws_account_id: "{{ aws_account_id }}"
+    aws_region: "{{ aws_region }}"
+    aws_zone:  "{{ aws_zone }}"
+    aws_zone_alt: "{{ aws_zone_alt }}"
 
     provision_vpc_id: ""
   roles:
@@ -16,6 +18,7 @@
     provision_vpc_name: "{{ genesis_vpc_name }}"
     provision_state_bucket: "{{ genesis_state_bucket }}"
     provision_state_file: "{{ genesis_state_file }}"
+    provision_jump_access_cidr: "{{ genesis_jump_access_cidr }}"
     provision_keypair_name: "{{ aws_keypair_name }}"
     provision_private_key: ~/.ssh/provision/{{ aws_private_key | basename }}
     provision_inventory_all_filters:
